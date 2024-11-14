@@ -1,22 +1,27 @@
-import redis
-import logging
+from queue import Queue
+import threading
+import time
 
-# Setup Redis connection
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+# Initialize a queue for Pub/Sub messages
+message_queue = Queue()
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+def publish_message(message):
+    """Publish a message to the message queue."""
+    message_queue.put(message)
+    print(f"Published message: {message}")
 
-def publish(channel, message):
-    # Log the publish action
-    logging.info(f"Publishing message to channel '{channel}': {message}")
-    redis_client.publish(channel, message)
+def subscribe_to_messages(process_message):
+    """Subscribe to messages in the queue and process them as they arrive."""
+    while True:
+        message = message_queue.get()  # Get the message from the queue
+        if message is None:
+            break  # End the thread if a None message is sent (for cleanup)
+        process_message(message)
+        message_queue.task_done()
 
-def subscribe(channel):
-    pubsub = redis_client.pubsub()
-    pubsub.subscribe(channel)
-    
-    # Log the subscription action
-    logging.info(f"Subscribed to channel '{channel}'")
-    
-    return pubsub
+def start_subscription(process_message):
+    """Start a new thread to listen for messages and process them."""
+    subscriber_thread = threading.Thread(target=subscribe_to_messages, args=(process_message,))
+    subscriber_thread.daemon = True  # Daemonize thread so it closes with the main program
+    subscriber_thread.start()
+    return subscriber_thread
