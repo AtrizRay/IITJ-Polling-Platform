@@ -11,6 +11,7 @@ from flask_migrate import Migrate
 from config import Config
 from models import db, User, Poll, Vote
 from collections.abc import MutableMapping
+from pubsub import publish_message, start_subscription
 import logging
 
 # Set up logging
