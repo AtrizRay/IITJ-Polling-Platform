@@ -1,17 +1,18 @@
-#Use the official lightweight Python image.
-#https://hub.docker.com/_/python
 FROM python:3.9-slim
 
-#Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
-
-#Copy local code to the container image.
 ENV APP_HOME /app
+ENV PORT 8080
+
 WORKDIR $APP_HOME
+
 COPY . ./
 
+# Install dependencies including debugpy
+RUN pip install flask gunicorn pandas debugpy flask_login werkzeug flask_sqlalchemy flask_migrate config 
 
-RUN pip install -r requirements.txt
-RUN pip install gunicorn
+# Add debug mode environment variable
+ENV FLASK_ENV=development
+ENV FLASK_DEBUG=1
 
-CMD gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+CMD gunicorn --bind :${PORT} --workers 1 --threads 8 --timeout 0 app:app
