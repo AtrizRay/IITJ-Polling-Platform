@@ -1,6 +1,6 @@
 # IIT Polling Platform
 
-This is a multi-tenant polling platform designed for use by multiple institutions, allowing students to participate in polls and administrators to manage and view poll results. The platform is built with Flask and follows a Pub/Sub architecture for real-time updates. It supports deployment on Google Cloud using Docker and Cloud Run.
+This is a multi-tenant polling platform designed for use by multiple institutions, allowing students to participate in polls and administrators to manage and view poll results. The platform is built with Flask and follows a Pub/Sub architecture for real-time updates. It supports deployment on Google Cloud using Docker and Cloud Run. Our application is live on https://iitjpoll-7suqwt5voq-el.a.run.app 
 
 ## Table of Contents
 - [Features](#features)
@@ -148,7 +148,7 @@ Make sure to replace `[YOUR_PROJECT_ID]` with your Google Cloud project ID.
 
 ## Contributors
 
-- **Name** - [Atriz Ray](https://github.com/AtrizRay)
+- **Name** - [Atriz Ray](https://github.com/AtrizRay) , [Nidhi Rani](https://github.com/NIDHIRANI-PROG) , [Subham Roy]
 - **Project Mentor** - Sumit Kalra
 
 ---
