@@ -99,7 +99,7 @@ The application should be accessible at `http://localhost:5000`.
    - See results of previous polls once they are published.
 
 ### Note
-Admins and students have different permissions and views. Ensure to select the correct role when logging in.
+Admins and students have different permissions and views. Ensure to select the correct role when logging in. Credentials to login are prsent in Database file for admin and students.
 
 ---
 
